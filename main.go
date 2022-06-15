@@ -20,14 +20,15 @@ func HandleRequest(ctx context.Context, payload Payload) error {
 		return fmt.Errorf("this is not amazon url: %v: %v", err, url)
 	}
 
-	// sess, err := session.NewSession()
-	// if err != nil {
-	// 	return err
-	// }
-	// db := dynamodb.New(sess)
+	db := new(DB)
+	if err := db.newDynamoDB(); err != nil {
+		return err
+	}
+	if err := db.putItem(url); err != nil {
+		return err
+	}
 
 	return nil
-
 }
 
 func main() {
