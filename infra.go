@@ -20,6 +20,7 @@ func (db *DB) newDynamoDB() error {
 }
 
 func (db *DB) putItem(url string) error {
+	rand.Seed(time.Now().UnixNano())
 	randID := strconv.Itoa(rand.Intn(100))
 	epoch := strconv.FormatInt(time.Now().Unix(), 10)
 	input := &dynamodb.PutItemInput{
